@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { TrendingUp, Users, Construction, Trash2, Info, ChevronUp, Coins, Wheat, TreeDeciduous } from 'lucide-react';
+import { TrendingUp, Users, Construction, Trash2, Info, ChevronUp, Coins, Wheat, TreeDeciduous, BookOpen, Shield, Sword } from 'lucide-react';
 import { mechanicsData } from '../data/mechanics';
 import { civData } from '../data/civs';
+import { civStrategies } from '../data/strategies';
 
 export default function AcademyTab() {
   const { villagerGrowth, constructionPower, populationBalance, ageUpCosts } = mechanicsData;
   const [selectedCivId, setSelectedCivId] = useState('All');
 
-  const filteredAgeUpCosts = selectedCivId === 'Byzantine' || selectedCivId === 'Ayyubid' || selectedCivId === 'Abbasid'
-    ? { ...ageUpCosts, note: 'Nota: Esta civilización usa un sistema único de avance (Alas o Hitos específicos).' }
+  const filteredAgeUpCosts = selectedCivId === 'byzantines' || selectedCivId === 'abbasid' || selectedCivId === 'tughlaq' || selectedCivId === 'malians'
+    ? { ...ageUpCosts, note: 'Nota: Esta civilización posee dinámicas económicas o de avance radicales que alteran la recolección basal.' }
     : ageUpCosts;
+
+  const currentStrategy = selectedCivId !== 'All' ? civStrategies[selectedCivId] : null;
+  const currentCiv = civData.find(c => c.id === selectedCivId);
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-12">
@@ -38,6 +42,45 @@ export default function AcademyTab() {
            ))}
         </div>
       </header>
+
+      {/* Civilization Specific Strategy Profile */}
+      {currentStrategy && currentCiv && (
+        <section className={`bg-slate-900/50 border-2 rounded-3xl p-6 md:p-8 relative overflow-hidden animate-in fade-in slide-in-from-top-4`} style={{ borderColor: 'rgba(245, 158, 11, 0.4)' }}>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-3xl rounded-full z-0 pointer-events-none"></div>
+          
+          <div className="flex items-center gap-3 mb-6 relative z-10">
+            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${currentCiv.theme} flex items-center justify-center border border-white/20 shadow-lg`}>
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-black text-white leading-none">Perfil Doctrinario: {currentCiv.name}</h3>
+              <p className="text-amber-500 font-bold text-xs uppercase tracking-widest mt-1">Estrategia Asimétrica</p>
+            </div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6 relative z-10">
+            <div className="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-5 shadow-inner">
+              <div className="flex items-center gap-2 mb-3">
+                <Shield className="w-5 h-5 text-emerald-400" />
+                <h4 className="font-black text-emerald-400 uppercase tracking-widest text-sm">Fortalezas Estructurales</h4>
+              </div>
+              <p className="text-slate-300 leading-relaxed text-sm md:text-base">
+                {currentStrategy.fortalezas}
+              </p>
+            </div>
+
+            <div className="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-5 shadow-inner">
+              <div className="flex items-center gap-2 mb-3">
+                <Sword className="w-5 h-5 text-rose-400" />
+                <h4 className="font-black text-rose-400 uppercase tracking-widest text-sm">Vulnerabilidades Críticas</h4>
+              </div>
+              <p className="text-slate-300 leading-relaxed text-sm md:text-base">
+                {currentStrategy.debilidades}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Age Up Costs - NEW SECTION */}
       <section className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 md:p-8 relative overflow-hidden group">

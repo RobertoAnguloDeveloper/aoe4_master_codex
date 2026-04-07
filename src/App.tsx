@@ -140,19 +140,19 @@ export default function App() {
 
         {activeTab === 'academy' && (
           <section className="w-full">
-            <AcademyTab />
+            <AcademyTab selectedCiv={selectedCiv} onSelectCiv={setSelectedCiv} />
           </section>
         )}
 
         {activeTab === 'arsenal' && (
           <section className="w-full">
-            <ArsenalTab />
+            <ArsenalTab selectedCiv={selectedCiv} onSelectCiv={setSelectedCiv} />
           </section>
         )}
 
         {activeTab === 'topography' && (
           <section className="w-full">
-            <TopographyTab />
+            <TopographyTab selectedCiv={selectedCiv} onSelectCiv={setSelectedCiv} />
           </section>
         )}
       </main>

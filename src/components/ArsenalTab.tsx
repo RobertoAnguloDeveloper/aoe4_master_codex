@@ -3,10 +3,10 @@ import { Search, Sword, Shield, Target, Zap, Filter, Coins, Wheat, TreeDeciduous
 import { counterData } from '../data/units';
 import { civData } from '../data/civs';
 
-export default function ArsenalTab() {
+export default function ArsenalTab({ selectedCiv, onSelectCiv }: { selectedCiv: any, onSelectCiv: (civ: any) => void }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('All');
-  const [selectedCivId, setSelectedCivId] = useState('All');
+  const [civSearch, setCivSearch] = useState('');
 
   const filteredUnits = counterData.filter(unit => {
     const matchesSearch = unit.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -14,13 +14,21 @@ export default function ArsenalTab() {
                           unit.type.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesType = filterType === 'All' || unit.type.includes(filterType);
     
-    // Advanced Civ Filter
-    const civMatches = selectedCivId === 'All' || 
-                       unit.civ.toLowerCase().includes(selectedCivId.toLowerCase()) ||
-                       unit.civ.includes('Genérica');
-    
-    return matchesSearch && matchesType && civMatches;
+    // Improved Civ Filter
+    const isGeneric = unit.civ.includes('Genérica');
+    const matchesSelectedCiv = unit.civ.toLowerCase().includes(selectedCiv.name.toLowerCase()) || 
+                               (selectedCiv.id === 'macedonia' && unit.civ.includes('Macedonia')) ||
+                               (selectedCiv.id === 'house-of-lancaster' && unit.civ.includes('Lancaster')) ||
+                               (selectedCiv.id === 'golden-horde' && unit.civ.includes('Horda de Oro')) ||
+                               (selectedCiv.id === 'tughlaq' && unit.civ.includes('Tughlaq')) ||
+                               (selectedCiv.id === 'templars' && unit.civ.includes('Templarios'));
+
+    return matchesSearch && matchesType && (matchesSelectedCiv || isGeneric);
   });
+
+  const civsToDisplay = civData.filter(civ => 
+    civ.name.toLowerCase().includes(civSearch.toLowerCase())
+  );
 
   const categories = ['All', 'Infantería', 'Caballería', 'Asedio', 'Pólvora', 'Arquero'];
 
@@ -32,23 +40,30 @@ export default function ArsenalTab() {
           <p className="text-slate-400">Matriz de contrarrestos y especializaciones militares con desglose de costos.</p>
         </div>
 
-        {/* Civ Filter */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 self-start md:self-end">
-           <button
-             onClick={() => setSelectedCivId('All')}
-             className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${selectedCivId === 'All' ? 'bg-amber-500 border-amber-400 text-slate-950' : 'bg-slate-900 border-slate-800 text-slate-500 hover:border-slate-600'}`}
-           >
-             Todas las Facciones
-           </button>
-           {civData.map(civ => (
-             <button
-               key={civ.id}
-               onClick={() => setSelectedCivId(civ.id)}
-               className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border whitespace-nowrap ${selectedCivId === civ.id ? 'bg-amber-500 border-amber-400 text-slate-950' : 'bg-slate-900 border-slate-800 text-slate-500 hover:border-slate-600'}`}
-             >
-               {civ.name}
-             </button>
-           ))}
+        {/* Civ Filter with Search */}
+        <div className="flex flex-col gap-3 md:items-end">
+           <div className="relative group w-full md:w-64">
+             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-amber-500 transition-colors" />
+             <input 
+               type="text" 
+               placeholder="Buscar facción..." 
+               className="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 pl-10 pr-4 text-xs text-white focus:outline-none focus:border-amber-500/50 transition-all font-medium placeholder:text-slate-600"
+               value={civSearch}
+               onChange={(e) => setCivSearch(e.target.value)}
+             />
+           </div>
+           
+           <div className="flex items-center gap-2 overflow-x-auto pb-2 self-start md:self-end max-w-full md:max-w-2xl no-scrollbar">
+              {civsToDisplay.map(civ => (
+                <button
+                  key={civ.id}
+                  onClick={() => onSelectCiv(civ)}
+                  className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border whitespace-nowrap ${selectedCiv.id === civ.id ? 'bg-amber-500 border-amber-400 text-slate-950' : 'bg-slate-900 border-slate-800 text-slate-500 hover:border-slate-600'}`}
+                >
+                  {civ.name}
+                </button>
+              ))}
+           </div>
         </div>
       </header>
 

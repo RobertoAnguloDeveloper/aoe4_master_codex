@@ -25,5 +25,15 @@ export const mechanicsData = {
     title: 'Optimización del Juego Tardío',
     targets: '80-140 aldeanos para la fase de expansión. 60-80 para la fase de combate final (Deathball).',
     strategy: 'La Purga Táctica: Eliminar aldeanos una vez que las reservas son masivas para liberar espacio para 120+ unidades militares de élite.'
+  },
+  ageUpCosts: {
+    title: 'Logística de Evolución Imperial',
+    description: 'Para avanzar de era, la mayoría de las civilizaciones deben reunir una cantidad base de recursos.',
+    ages: [
+      { num: 2, name: 'Edad Feudal', food: 400, gold: 200, wood: 0 },
+      { num: 3, name: 'Edad de los Castillos', food: 1200, gold: 600, wood: 0 },
+      { num: 4, name: 'Edad Imperial', food: 2400, gold: 1200, wood: 0 }
+    ],
+    note: 'Excepciones mecánicas como Abasíes o Ayubíes usan el sistema de Alas de la Casa de la Sabiduría.'
   }
 };

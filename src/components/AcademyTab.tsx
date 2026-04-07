@@ -1,16 +1,101 @@
-import React from 'react';
-import { TrendingUp, Users, Construction, Trash2, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { TrendingUp, Users, Construction, Trash2, Info, ChevronUp, Coins, Wheat, TreeDeciduous } from 'lucide-react';
 import { mechanicsData } from '../data/mechanics';
+import { civData } from '../data/civs';
 
 export default function AcademyTab() {
-  const { villagerGrowth, constructionPower, populationBalance } = mechanicsData;
+  const { villagerGrowth, constructionPower, populationBalance, ageUpCosts } = mechanicsData;
+  const [selectedCivId, setSelectedCivId] = useState('All');
+
+  const filteredAgeUpCosts = selectedCivId === 'Byzantine' || selectedCivId === 'Ayyubid' || selectedCivId === 'Abbasid'
+    ? { ...ageUpCosts, note: 'Nota: Esta civilización usa un sistema único de avance (Alas o Hitos específicos).' }
+    : ageUpCosts;
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="mb-8">
-        <h2 className="text-3xl font-black text-white mb-2">La Academia del Maestro</h2>
-        <p className="text-slate-400">Análisis cuantitativo para la optimización imperial. El control de las matemáticas es la base de la victoria.</p>
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-12">
+      <header className="mb-0 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h2 className="text-3xl font-black text-white mb-2">La Academia del Maestro</h2>
+          <p className="text-slate-400">Análisis cuantitativo para la optimización imperial. El control de las matemáticas es la base de la victoria.</p>
+        </div>
+        
+        {/* Civ Filter */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 self-start md:self-end">
+           <button
+             onClick={() => setSelectedCivId('All')}
+             className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${selectedCivId === 'All' ? 'bg-amber-500 border-amber-400 text-slate-950' : 'bg-slate-900 border-slate-800 text-slate-500 hover:border-slate-600'}`}
+           >
+             Todas
+           </button>
+           {civData.map(civ => (
+             <button
+               key={civ.id}
+               onClick={() => setSelectedCivId(civ.id)}
+               className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border whitespace-nowrap ${selectedCivId === civ.id ? 'bg-amber-500 border-amber-400 text-slate-950' : 'bg-slate-900 border-slate-800 text-slate-500 hover:border-slate-600'}`}
+             >
+               {civ.name}
+             </button>
+           ))}
+        </div>
       </header>
+
+      {/* Age Up Costs - NEW SECTION */}
+      <section className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 md:p-8 relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+           <ChevronUp className="w-32 h-32 text-white" />
+        </div>
+        
+        <div className="flex items-center gap-3 mb-6 relative z-10">
+          <div className="w-10 h-10 rounded-xl bg-amber-600/20 flex items-center justify-center border border-amber-500/30">
+            <TrendingUp className="w-5 h-5 text-amber-400" />
+          </div>
+          <h3 className="text-xl font-bold text-white">{ageUpCosts.title}</h3>
+        </div>
+        
+        <p className="text-slate-400 mb-8 leading-relaxed max-w-2xl relative z-10">{ageUpCosts.description}</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+          {ageUpCosts.ages.map((age) => (
+            <div key={age.num} className="bg-slate-950/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-800 hover:border-amber-500/30 transition-all">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">Era {age.num}</span>
+                <span className="text-sm font-bold text-white uppercase">{age.name}</span>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="flex items-center justify-between group/res">
+                  <div className="flex items-center gap-2">
+                    <Wheat className="w-4 h-4 text-orange-400" />
+                    <span className="text-xs text-slate-400">Comida</span>
+                  </div>
+                  <span className="font-mono text-white font-bold">{age.food}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Coins className="w-4 h-4 text-amber-400" />
+                    <span className="text-xs text-slate-400">Oro</span>
+                  </div>
+                  <span className="font-mono text-white font-bold">{age.gold}</span>
+                </div>
+                {age.wood > 0 && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <TreeDeciduous className="w-4 h-4 text-emerald-400" />
+                      <span className="text-xs text-slate-400">Madera</span>
+                    </div>
+                    <span className="font-mono text-white font-bold">{age.wood}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-start gap-4">
+          <Info className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-slate-400 italic">{filteredAgeUpCosts.note}</p>
+        </div>
+      </section>
 
       {/* Villager Growth */}
       <section className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 md:p-8">

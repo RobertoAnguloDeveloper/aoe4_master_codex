@@ -131,5 +131,12 @@ export const civStrategies: Record<string, { fortalezas: string, debilidades: st
     early: 'Ala de Crecimiento para boom económico o Ala Militar para incursiones rápidas.',
     mid: 'Uso de Incursores del Desierto (híbridos) para hostigamiento constante en granjas.',
     late: 'Mamelucos del Sultán que dominan cualquier melé. Artillería con gran velocidad de fuego.'
+  },
+  'jin-dynasty': {
+    fortalezas: 'Economía explosiva mediante Aldeanos Montados y Estados Tributarios. Caballería de carga devastadora con soporte de Pastizales y pólvora destructiva.',
+    debilidades: 'Límite estricto de aldeanos montados muy restrictivo si se pierden los Emisarios o Estados Tributarios. Alta complejidad táctica.',
+    early: 'Boom inicial con Aldeanos Montados. Manda al Emisario rápido a puestos comerciales para crear Estados Tributarios y aumentar tu límite de aldeanos.',
+    mid: 'Construye Pastizales y establécelos cerca de los Establos de Guerra para invocar ejércitos de Pagodas de Hierro con salud extra. Domina la caballería de mapa.',
+    late: 'Transiciona a Granaderos Montados e inflige daño de área de pólvora. Usa Eruptores en la línea frontal para disolver asaltos terrestres.'
   }
 };

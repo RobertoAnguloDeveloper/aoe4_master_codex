@@ -21,7 +21,7 @@ export const mapData = [
   },
   {
     name: 'Dry Arabia (El Yermo Móvil)',
-    dominance: 'Franceses, Mongoles y Horda de Oro',
+    dominance: 'Franceses, Mongoles, Horda de Oro y Dinastía Jin',
     reason: 'Sin protecciones naturales, el control del mapa se ejerce mediante patrullas de caballería ligera y pesada que cortan líneas de suministro.'
   }
 ];

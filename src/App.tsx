@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Shield, Sword, AlertTriangle, BookOpen, Target, ArrowRight, Zap, Network, ChevronDown, GraduationCap, Map as MapIcon, Crosshair } from 'lucide-react';
+import { Shield, Sword, AlertTriangle, BookOpen, Target, ArrowRight, Zap, Network, ChevronDown, GraduationCap, Map as MapIcon, Crosshair, Flame } from 'lucide-react';
 import { civData } from './data/civs';
 import CivDetails from './components/CivDetails';
 import AcademyTab from './components/AcademyTab';
 import ArsenalTab from './components/ArsenalTab';
 import TopographyTab from './components/TopographyTab';
+import WololoTab from './components/WololoTab';
 
-type TabType = 'civs' | 'academy' | 'arsenal' | 'topography';
+type TabType = 'civs' | 'academy' | 'arsenal' | 'topography' | 'wololo';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('civs');
@@ -17,6 +18,7 @@ export default function App() {
     { id: 'academy', label: 'La Academia', icon: GraduationCap },
     { id: 'arsenal', label: 'Arsenal Maestro', icon: Crosshair },
     { id: 'topography', label: 'Topografía', icon: MapIcon },
+    { id: 'wololo', label: 'WOLOLO', icon: Flame },
   ];
 
   return (
@@ -153,6 +155,12 @@ export default function App() {
         {activeTab === 'topography' && (
           <section className="w-full">
             <TopographyTab selectedCiv={selectedCiv} onSelectCiv={setSelectedCiv} />
+          </section>
+        )}
+
+        {activeTab === 'wololo' && (
+          <section className="w-full">
+            <WololoTab />
           </section>
         )}
       </main>

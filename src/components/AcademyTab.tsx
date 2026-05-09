@@ -8,9 +8,10 @@ export default function AcademyTab({ selectedCiv, onSelectCiv }: { selectedCiv: 
   const { villagerGrowth, constructionPower, populationBalance, ageUpCosts } = mechanicsData;
   const [civSearch, setCivSearch] = useState('');
 
-  const filteredAgeUpCosts = selectedCiv.id === 'byzantines' || selectedCiv.id === 'abbasid' || selectedCiv.id === 'tughlaq' || selectedCiv.id === 'malians'
+  const filteredAgeUpCosts = selectedCiv.id === 'byzantines' || selectedCiv.id === 'abbasid' || selectedCiv.id === 'tughlaq' || selectedCiv.id === 'malians' || selectedCiv.id === 'jin-dynasty'
     ? { ...ageUpCosts, note: 'Nota: Esta civilización posee dinámicas económicas o de avance radicales que alteran la recolección basal.' }
     : ageUpCosts;
+
 
   const currentStrategy = civStrategies[selectedCiv.id] || null;
 

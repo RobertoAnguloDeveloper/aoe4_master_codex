@@ -392,5 +392,29 @@ export const civData = [
       { num: 3, name: 'Edad de Castillos', focus: '🥩 Comida y 🥇 Oro', unit: 'Musofadi', action: 'Sube Guarnición Farimba (vomita tropas masivas usando oro). Usa vacas en corrales para comida.' },
       { num: 4, name: 'Edad Imperial', focus: '🥇 Oro y 🥩 Comida', unit: 'Artillería Venenosa', action: 'Fuerte de la Cazadora. Tus Musofadi se vuelven invisibles casi siempre. Tácticas de guerrilla letales.' }
     ]
+  },
+  {
+    id: 'jin-dynasty',
+    name: 'Dinastía Jin',
+    theme: 'from-amber-600 to-yellow-800',
+    accent: 'text-amber-500',
+    ultimateUnit: 'Pagoda de Hierro + Granadero Montado',
+    difficulty: 'Muy Difícil (Variante China)',
+    isVariant: true,
+    masterTip: 'Los Aldeanos Montados son extremadamente eficientes pero tienen un límite estricto de 20. Captura puestos comerciales con tus Emisarios de inmediato para crear Estados Tributarios que aumenten este límite y aceleren tu economía basada en Pastizales.',
+    hierarchy: [
+      { tier: 'S', color: 'border-amber-500 bg-amber-950/30 text-amber-400', role: 'Fuerza de Rompimiento', units: 'Pagoda de Hierro', desc: 'Caballería súper pesada blindada que inflige un daño de área devastador durante la carga. Rompen cualquier formación enemiga de inmediato.' },
+      { tier: 'A', color: 'border-purple-500 bg-purple-950/30 text-purple-400', role: 'Artillería Móvil', units: 'Granadero Montado', desc: 'Caballería pesada con granaderos que infligen daño de área masivo de pólvora. Perfectos para diezmar escuadrones de infantería.' },
+      { tier: 'B', color: 'border-blue-500 bg-blue-950/30 text-blue-400', role: 'Soporte y Expansión', units: 'Emisario y Aldeano Montado', desc: 'Los Aldeanos Montados aceleran la recolección basal, y los Emisarios compran/sobornan unidades o establecen Estados Tributarios en puestos comerciales.' },
+      { tier: 'C', color: 'border-slate-500 bg-slate-800/50 text-slate-400', role: 'Defensa y Control', units: 'Miembro de la Tribu Mohe', desc: 'Caballería ligera de hostigamiento a distancia que reemplaza al arquero estándar, ofreciendo una excelente movilidad para incursiones tempranas.' }
+    ],
+    ages: [
+      { num: 1, name: 'Edad Oscura', focus: '🥩 Comida y 🪵 Madera', unit: 'Aldeano Montado', action: 'Produce Aldeanos Montados (máx. 20) para acelerar la recolección. Utiliza al Emisario para explorar y localizar puestos comerciales.' },
+      { num: 2, name: 'Edad Feudal', focus: '🥩 Comida y 🥇 Oro', unit: 'Miembro de la Tribu Mohe', action: 'Avanza seleccionando tu primer Pastizal de Caballos. Produce Mohe para acosar y establece Estados Tributarios con Emisarios para aumentar el límite de aldeanos.' },
+      { num: 3, name: 'Edad de los Castillos', focus: '🥇 Oro masivo y 🥩 Comida', unit: 'Pagoda de Hierro', action: 'Coloca Pastizales cerca de tus Establos de Guerra para producir Pagodas de Hierro instantáneas con descuento. El buff de los caballos los mantiene con salud extra.' },
+      { num: 4, name: 'Edad Imperial', focus: '🥇 Oro, 🥩 Comida y 🪵 Madera', unit: 'Granadero Montado', action: 'Despliega Eruptores en la línea frontal junto a los Granaderos Montados. Convierte el campo de batalla en una tormenta de fuego de pólvora asimétrica.' }
+    ],
+    mapSynergy: 'Dry Arabia (Dominio de Pastizales)'
   }
 ];
+

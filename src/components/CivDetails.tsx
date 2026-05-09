@@ -28,6 +28,7 @@ interface Civ {
   hierarchy: Hierarchy[];
   ages: Age[];
   isVariant?: boolean;
+  mapSynergy?: string;
 }
 
 export default function CivDetails({ selectedCiv }: { selectedCiv: Civ }) {
